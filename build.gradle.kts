@@ -5,6 +5,7 @@ plugins {
     id("fabric-loom") version "0.12-SNAPSHOT"
     id("io.github.juuxel.loom-quiltflower") version "1.7.1"
     id("org.quiltmc.quilt-mappings-on-loom") version "4.2.0"
+    kotlin("plugin.serialization") version "1.5.31"
 }
 
 group = "net.axay"
