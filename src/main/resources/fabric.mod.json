@@ -1,0 +1,28 @@
+{
+  "id": "kotlin-mc-hub",
+  "version": "${version}",
+  "schemaVersion": 1,
+
+  "name": "Kotlin MC Hub",
+  "description": "${description}",
+  "authors": [
+    "jakobkmar"
+  ],
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.axay.kotlinmchub.Manager"
+    ]
+  },
+  "mixins": [
+    "kotlinmchub.mixin.json"
+  ],
+  "depends": {
+    "minecraft": "${mc_version}.x",
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "fabric-language-kotlin": "*",
+    "fabrikmc-core": "*",
+    "fabrikmc-commands": "*"
+  }
+}
