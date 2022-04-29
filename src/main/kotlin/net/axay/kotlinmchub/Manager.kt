@@ -1,16 +1,22 @@
 package net.axay.kotlinmchub
 
+import net.axay.fabrik.core.logging.logInfo
 import net.axay.kotlinmchub.damager.Damager
+import net.axay.kotlinmchub.damager.damageCommand
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
-import net.minecraft.server.MinecraftServer
 
 class Manager : ModInitializer {
+
     override fun onInitialize() {
+        registerCommands()
         ServerLifecycleEvents.SERVER_STARTED.register {
             Damager.enable()
         }
     }
 
+    private fun registerCommands() {
+        damageCommand
+    }
 
 }
