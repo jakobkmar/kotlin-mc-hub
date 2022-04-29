@@ -27,6 +27,7 @@ dependencies {
 
     val fabrikVersion = "1.7.4"
     modImplementation("net.axay:fabrikmc-core:$fabrikVersion")
+    modImplementation("net.axay:fabrikmc-commands:$fabrikVersion")
 }
 
 tasks {
