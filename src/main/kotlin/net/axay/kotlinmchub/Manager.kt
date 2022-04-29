@@ -1,5 +1,6 @@
 package net.axay.kotlinmchub
 
+import net.axay.fabrik.core.logging.logInfo
 import net.axay.kotlinmchub.damager.Damager
 import net.axay.kotlinmchub.damager.damageCommand
 import net.fabricmc.api.ModInitializer
