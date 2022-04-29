@@ -19,7 +19,7 @@ import net.minecraft.world.level.GameType
 val playerDifficulty = mutableMapOf<Player, Float>()
 
 object Damager {
-    val damagerPos = Pos3i(0, 100, 0) to Pos3i(5, 105, 5)
+    val damagerPos = Pos3i(-8, -30, -22) to Pos3i(-2, -30, -13)
 
     fun enable() {
         coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
