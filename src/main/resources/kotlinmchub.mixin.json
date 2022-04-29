@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_17",
   "package": "net.axay.kotlinmchub.mixin",
   "mixins": [
+    "MixinEntityHurt",
     "MixinExplosion",
     "MixinServerPlayerGameMode"
   ]
