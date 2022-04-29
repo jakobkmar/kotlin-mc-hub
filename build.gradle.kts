@@ -30,6 +30,10 @@ dependencies {
     modImplementation("net.axay:fabrikmc-commands:$fabrikVersion")
 }
 
+kotlin.sourceSets.all {
+    languageSettings.optIn("kotlin.RequiresOptIn")
+}
+
 tasks {
     withType<JavaCompile> {
         options.release.set(17)
