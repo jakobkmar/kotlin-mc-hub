@@ -5,10 +5,11 @@
     "defaultRequire": 1
   },
   "compatibilityLevel": "JAVA_17",
-  "server": [
-    "ItemStackMixin"
-  ],
+  "package": "net.axay.kotlinmchub.mixin",
   "mixins": [
-    "EntityMixin"
+    "MixinExplosion",
+    "MixinServerPlayerGameMode",
+    "EntityMixin",
+    "ItemStackMixin"
   ]
 }
