@@ -4,7 +4,9 @@
     "defaultRequire": 1
   },
   "compatibilityLevel": "JAVA_17",
+  "package": "net.axay.kotlinmchub.mixin",
   "mixins": [
-
+    "MixinExplosion",
+    "MixinServerPlayerGameMode"
   ]
 }
