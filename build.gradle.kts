@@ -31,7 +31,7 @@ dependencies {
 
 tasks {
     withType<JavaCompile> {
-        options.release.set(11)
+        options.release.set(17)
         options.encoding = "UTF-8"
     }
 
