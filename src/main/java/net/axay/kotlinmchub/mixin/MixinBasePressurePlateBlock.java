@@ -2,7 +2,6 @@ package net.axay.kotlinmchub.mixin;
 
 import net.axay.kotlinmchub.features.ElytraLauncherKt;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BasePressurePlateBlock;
@@ -30,7 +29,7 @@ public class MixinBasePressurePlateBlock {
                            int output,
                            CallbackInfo ci) {
         if (entity != null) {
-            ElytraLauncherKt.launchElytra(player, pos, state);
+            ElytraLauncherKt.launchElytra(entity, pos, state);
         }
     }
 }
