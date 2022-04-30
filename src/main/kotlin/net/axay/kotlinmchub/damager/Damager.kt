@@ -58,7 +58,7 @@ object Damager {
         inventory.setItem(15, itemStack(Items.BROWN_MUSHROOM, 64){})
         foodData.foodLevel = 20
         health = 20f
-        beforeGamemodes[this.uuid] = gameMode.gameModeForPlayer
+        beforeGamemodes[uuid] = gameMode.gameModeForPlayer
         setGameMode(GameType.ADVENTURE)
         sendText("Du hast den Damager betreten")
     }
