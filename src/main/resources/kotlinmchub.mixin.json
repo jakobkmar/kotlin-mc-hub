@@ -12,6 +12,7 @@
     "MixinItemStack",
     "MixinServerPlayer",
     "MixinServerPlayerGameMode",
+    "MixinSignBlock",
     "MixinTridentItem"
   ]
 }
