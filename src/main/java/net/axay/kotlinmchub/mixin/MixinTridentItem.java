@@ -17,24 +17,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinTridentItem {
 
     @Inject(
-            method = "use",
-            at = @At("HEAD"),
-            cancellable = true
+        method = "use",
+        at = @At("HEAD"),
+        cancellable = true
     )
-    public void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
+    public void use(Level world,
+                    Player user,
+                    InteractionHand hand,
+                    CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         user.startUsingItem(hand);
         cir.setReturnValue(InteractionResultHolder.consume(user.getItemInHand(hand)));
     }
 
     @Redirect(
-            method = "releaseUsing",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/entity/player/Player;push(DDD)V"
-            )
+        method = "releaseUsing",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;push(DDD)V"
+        )
     )
     public void onRelease(Player instance, double h, double k, double l) {
         TridentKt.onTridentRelease(instance, h, k, l);
     }
-
 }

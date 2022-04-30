@@ -17,7 +17,6 @@ val damageItems = listOf(
     DamagerDifficulty("Legendary", Items.PURPLE_DYE, 9.0F),
 )
 
-
 val damagerGUI = igui(GuiType.NINE_BY_ONE, "Damager Settings".literal, 0) {
     page(0) {
         placeholder(Slots.All, Items.GRAY_STAINED_GLASS_PANE.guiIcon)

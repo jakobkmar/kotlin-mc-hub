@@ -25,21 +25,21 @@ public class MixinEntity {
     }
 
     @Inject(
-            method = "isCurrentlyGlowing",
-            at = @At("RETURN"),
-            cancellable = true
+        method = "isCurrentlyGlowing",
+        at = @At("RETURN"),
+        cancellable = true
     )
     private void makeEverythingGlow(CallbackInfoReturnable<Boolean> cir) {
         //noinspection ConstantConditions
-        if((Object) this instanceof Player) {
+        if ((Object) this instanceof Player) {
             cir.setReturnValue(true);
         }
     }
 
     @Inject(
-            method = "isInWaterOrRain",
-            at = @At("HEAD"),
-            cancellable = true
+        method = "isInWaterOrRain",
+        at = @At("HEAD"),
+        cancellable = true
     )
     private void isInRain(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(true);
