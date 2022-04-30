@@ -10,6 +10,7 @@
     "MixinEntity",
     "MixinExplosion",
     "MixinItemStack",
+    "MixinLivingEntity",
     "MixinServerPlayer",
     "MixinServerPlayerGameMode",
     "MixinSignBlock",
