@@ -69,7 +69,6 @@ object Damager {
         playersInDamager.remove(this)
         foodData.foodLevel = 20
         health = 20f
-        setGameMode(beforeGamemodes[uuid] ?: GameType.SURVIVAL)
         setInventory(beforeInventories[uuid] ?: emptyList())
         setGameMode(beforeGamemodes.remove(uuid) ?: GameType.SURVIVAL)
         sendText("You left the damager.")
