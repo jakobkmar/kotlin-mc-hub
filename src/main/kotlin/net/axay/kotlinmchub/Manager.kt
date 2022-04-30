@@ -1,5 +1,6 @@
 package net.axay.kotlinmchub
 
+import net.axay.kotlinmchub.commands.restartCommand
 import net.axay.kotlinmchub.damager.Damager
 import net.axay.kotlinmchub.damager.damageCommand
 import net.fabricmc.api.ModInitializer
@@ -16,5 +17,6 @@ class Manager : ModInitializer {
 
     private fun registerCommands() {
         damageCommand
+        restartCommand
     }
 }
