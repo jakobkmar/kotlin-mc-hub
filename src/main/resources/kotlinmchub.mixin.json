@@ -7,9 +7,10 @@
   "package": "net.axay.kotlinmchub.mixin",
   "mixins": [
     "MixinBasePressurePlateBlock",
-    "MixinEntityHurt",
+    "MixinEntity",
     "MixinExplosion",
     "MixinItemStack",
-    "MixinServerPlayerGameMode"
+    "MixinServerPlayerGameMode",
+    "MixinTridentItem"
   ]
 }
