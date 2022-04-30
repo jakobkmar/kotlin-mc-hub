@@ -5,7 +5,13 @@
     "defaultRequire": 1
   },
   "compatibilityLevel": "JAVA_17",
-  "server": [
+  "package": "net.axay.kotlinmchub.mixin",
+  "mixins": [
+    "MixinBasePressurePlateBlock",
+    "MixinEntityHurt",
+    "MixinExplosion",
+    "MixinItemStack",
+    "MixinServerPlayerGameMode",
     "ItemStackMixin"
   ]
 }

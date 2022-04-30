@@ -33,9 +33,13 @@ dependencies {
     modImplementation("net.axay:fabrikmc-persistence:$fabrikVersion")
 }
 
+kotlin.sourceSets.all {
+    languageSettings.optIn("kotlin.RequiresOptIn")
+}
+
 tasks {
     withType<JavaCompile> {
-        options.release.set(11)
+        options.release.set(17)
         options.encoding = "UTF-8"
     }
 
