@@ -11,15 +11,12 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 
 fun Entity.isProtected(damageSource: DamageSource): Boolean {
-    if (damageSource == DamageSource.FLY_INTO_WALL || damageSource == DamageSource.FALL) {
-        return true
-    }
     if (this is Player) {
         return if (damageSource is EntityDamageSource) {
             damageSource.entity.isSurvivalPlayer()
         } else {
             when (damageSource) {
-                DamageSource.CACTUS -> true
+                DamageSource.CACTUS, DamageSource.FALL, DamageSource.FLY_INTO_WALL -> true
                 else -> false
             }
         }
