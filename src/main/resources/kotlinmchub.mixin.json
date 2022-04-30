@@ -1,6 +1,5 @@
 {
   "required": true,
-  "package": "net.axay.kotlinmchub.mixins",
   "injectors": {
     "defaultRequire": 1
   },
@@ -11,7 +10,6 @@
     "MixinEntityHurt",
     "MixinExplosion",
     "MixinItemStack",
-    "MixinServerPlayerGameMode",
-    "ItemStackMixin"
+    "MixinServerPlayerGameMode"
   ]
 }
