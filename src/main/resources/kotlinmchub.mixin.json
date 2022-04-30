@@ -10,6 +10,7 @@
     "MixinEntity",
     "MixinExplosion",
     "MixinItemStack",
+    "MixinServerPlayer",
     "MixinServerPlayerGameMode",
     "MixinTridentItem"
   ]
