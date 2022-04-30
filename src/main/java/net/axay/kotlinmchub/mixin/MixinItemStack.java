@@ -23,7 +23,8 @@ public abstract class MixinItemStack {
 
     @Inject(
         method = "use",
-        at = @At("HEAD")
+        at = @At("HEAD"),
+        cancellable = true
     )
     private void onUse(Level world,
                        Player user,
