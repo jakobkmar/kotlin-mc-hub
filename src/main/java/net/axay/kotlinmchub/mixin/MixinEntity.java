@@ -3,6 +3,7 @@ package net.axay.kotlinmchub.mixin;
 import net.axay.kotlinmchub.features.ProtectionKt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,6 +25,18 @@ public class MixinEntity {
     }
 
     @Inject(
+            method = "isCurrentlyGlowing",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    private void makeEverythingGlow(CallbackInfoReturnable<Boolean> cir) {
+        //noinspection ConstantConditions
+        if((Object) this instanceof Player) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(
             method = "isInWaterOrRain",
             at = @At("HEAD"),
             cancellable = true
@@ -31,6 +44,4 @@ public class MixinEntity {
     private void isInRain(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(true);
     }
-
-
 }
