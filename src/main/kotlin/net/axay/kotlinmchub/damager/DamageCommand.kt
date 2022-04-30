@@ -5,11 +5,11 @@ import net.axay.fabrik.igui.openGui
 
 val damageCommand = command("damage") {
     runs {
-        source.playerOrException.openGui(damagerGUI, 0)
+        source.playerOrException.openGui(damagerGui, 0)
     }
     argument<Float>("damage") {
         runs {
-            playerDifficulty[source.playerOrException] = it()
+            Damager.playerDifficulty[source.playerOrException.uuid] = it()
         }
     }
 }

@@ -9,22 +9,21 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameType
 import java.util.*
 
-val playerDifficulty = mutableMapOf<Player, Float>()
-
 object Damager {
-    val damagerPos = Pos3i(-8, -31, -22) to Pos3i(-2, -28, -13)
-    val beforeGamemodes = mutableMapOf<UUID, GameType>()
+    val playerDifficulty = mutableMapOf<UUID, Float>()
+
+    private val damagerPos = Pos3i(-8, -31, -22) to Pos3i(-2, -28, -13)
+    private val beforeGamemodes = mutableMapOf<UUID, GameType>()
 
     fun enable() {
         coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
             checkPlayersInDamager()
             playersInDamager.forEach {
-                it.hurt(DamageSource.GENERIC, playerDifficulty.getOrDefault(it, 5.0F))
+                it.hurt(DamageSource.GENERIC, playerDifficulty.getOrDefault(it.uuid, 5.0F))
             }
         }
     }
@@ -60,20 +59,22 @@ object Damager {
         health = 20f
         beforeGamemodes[uuid] = gameMode.gameModeForPlayer
         setGameMode(GameType.ADVENTURE)
-        sendText("Du hast den Damager betreten")
+        sendText("You entered the damager.")
     }
+
     private fun ServerPlayer.onLeaveDamager() {
         inventory.clearContent()
         playersInDamager.remove(this)
         foodData.foodLevel = 20
         health = 20f
-        setGameMode(beforeGamemodes[uuid] ?: GameType.SURVIVAL)
-        sendText("Du hast den Damager verlassen")
+        setGameMode(beforeGamemodes.remove(uuid) ?: GameType.SURVIVAL)
+        sendText("You left the damager.")
     }
 }
 
+// make this class serializable in fabrikmc-core
 @kotlinx.serialization.Serializable
-data class Pos3i(val x: Int, val y: Int, val z: Int) {
+private data class Pos3i(val x: Int, val y: Int, val z: Int) {
     fun toTriple() = Triple(x, y, z)
     fun toVec3i() = Vec3i(x, y, z)
     fun toBlockPos() = BlockPos(x, y, z)
