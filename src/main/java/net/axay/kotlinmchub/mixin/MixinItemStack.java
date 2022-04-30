@@ -1,7 +1,7 @@
 package net.axay.kotlinmchub.mixin;
 
 import net.axay.kotlinmchub.features.ElytraLauncherKt;
-import net.axay.kotlinmchub.functionality.SoupHealingKt;
+import net.axay.kotlinmchub.features.SoupHealingKt;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -37,7 +37,12 @@ public abstract class MixinItemStack {
                 ElytraLauncherKt.featherBoostElytra(serverPlayer);
             }
         } else if (item.isEdible()) {
-            SoupHealingKt.INSTANCE.onPotentialSoupUse(user, item, cir, world, hand);
+            if (user instanceof ServerPlayer serverPlayer) {
+                final var result = SoupHealingKt.trySoupHealing(serverPlayer, item);
+                if (result != null) {
+                    cir.setReturnValue(InteractionResultHolder.pass(result));
+                }
+            }
         }
     }
 }
