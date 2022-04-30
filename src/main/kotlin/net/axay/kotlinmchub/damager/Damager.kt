@@ -22,14 +22,16 @@ object Damager {
     private val beforeGamemodes = mutableMapOf<UUID, GameType>()
 
     fun enable() {
-        coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
+        coroutineTask(period = (1000L / 20L) * 12L, howOften = Long.MAX_VALUE) {
             checkPlayersInDamager()
-            playersInDamager.forEach {player ->
+            playersInDamager.forEach { player ->
                 val damage = playerDifficulty.getOrDefault(player.uuid, 5.0F)
-                if (damage >= player.health)
+                if (player.health - damage <= 0) {
                     player.teleportTo(Fabrik.currentServer!!.overworld(), damagerSpawn.x, damagerSpawn.y, damagerSpawn.z, 180F, 0F)
-                else
+                    player.health = 20f
+                } else {
                     player.hurt(DamageSource.GENERIC, damage)
+                }
             }
         }
     }
