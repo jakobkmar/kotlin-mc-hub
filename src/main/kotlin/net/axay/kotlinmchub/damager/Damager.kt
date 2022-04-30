@@ -28,7 +28,7 @@ object Damager {
         }
     }
 
-    private val playersInDamager: MutableSet<ServerPlayer> = mutableSetOf()
+    val playersInDamager: MutableSet<ServerPlayer> = mutableSetOf()
 
     private fun checkPlayersInDamager() {
         val playersInArea = Fabrik.currentServer?.playerList?.players?.filter {
