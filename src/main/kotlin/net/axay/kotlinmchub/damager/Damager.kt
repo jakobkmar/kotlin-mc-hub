@@ -1,13 +1,10 @@
 package net.axay.kotlinmchub.damager
 
-import kotlinx.coroutines.channels.broadcast
 import net.axay.fabrik.core.Fabrik
 import net.axay.fabrik.core.entity.pos
 import net.axay.fabrik.core.item.itemStack
-import net.axay.fabrik.core.logging.logInfo
 import net.axay.fabrik.core.task.coroutineTask
 import net.axay.fabrik.core.text.sendText
-import net.axay.fabrik.igui.openGui
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerPlayer
@@ -19,7 +16,7 @@ import net.minecraft.world.level.GameType
 val playerDifficulty = mutableMapOf<Player, Float>()
 
 object Damager {
-    val damagerPos = Pos3i(-8, -30, -22) to Pos3i(-2, -30, -13)
+    val damagerPos = Pos3i(-8, -30, -22) to Pos3i(-2, -28, -13)
 
     fun enable() {
         coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
