@@ -34,7 +34,4 @@ public class MixinEntity {
             cir.setReturnValue(true);
         }
     }
-
-
-
 }
