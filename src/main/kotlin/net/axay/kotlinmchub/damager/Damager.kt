@@ -11,19 +11,25 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameType
+import net.minecraft.world.phys.Vec3
 import java.util.*
 
 object Damager {
     val playerDifficulty = mutableMapOf<UUID, Float>()
 
     private val damagerPos = Pos3i(-8, -31, -21) to Pos3i(-2, -28, -13)
+    private val damagerSpawn = Vec3(-4.5, -30.0, -9.5)
     private val beforeGamemodes = mutableMapOf<UUID, GameType>()
 
     fun enable() {
         coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
             checkPlayersInDamager()
-            playersInDamager.forEach {
-                it.hurt(DamageSource.GENERIC, playerDifficulty.getOrDefault(it.uuid, 5.0F))
+            playersInDamager.forEach {player ->
+                val damage = playerDifficulty.getOrDefault(player.uuid, 5.0F)
+                if (damage >= player.health)
+                    player.teleportTo(Fabrik.currentServer!!.overworld(), damagerSpawn.x, damagerSpawn.y, damagerSpawn.z, 180F, 0F)
+                else
+                    player.hurt(DamageSource.GENERIC, damage)
             }
         }
     }
