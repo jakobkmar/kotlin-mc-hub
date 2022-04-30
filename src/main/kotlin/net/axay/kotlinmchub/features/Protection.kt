@@ -7,6 +7,7 @@ import net.minecraft.world.damagesource.IndirectEntityDamageSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.decoration.ArmorStand
 import net.minecraft.world.entity.decoration.ItemFrame
+import net.minecraft.world.entity.decoration.LeashFenceKnotEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 
@@ -28,7 +29,7 @@ fun Entity.isProtected(damageSource: DamageSource): Boolean {
 
         if (damageSource is IndirectEntityDamageSource) {
             val attacker = damageSource.directEntity
-            if (attacker is Projectile && (this is ItemFrame || this is ArmorStand))
+            if (attacker is Projectile && (this is ItemFrame || this is ArmorStand || this is LeashFenceKnotEntity))
                 return true
         }
     }
