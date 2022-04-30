@@ -28,7 +28,7 @@ val damagerGui = igui(GuiType.NINE_BY_ONE, "Damager Settings".literal, 0) {
                 itemStack(it.item) { setCustomName(it.name) }
             },
             onClick = { event, element ->
-                playerDifficulty[event.player] = element.damage
+                Damager.playerDifficulty[event.player.uuid] = element.damage
                 (event.player as? ServerPlayer)?.closeContainer()
             }
         )
