@@ -5,6 +5,7 @@ import net.axay.kotlinmchub.features.ProtectionKt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,9 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinEntity {
 
     @Inject(
-        method = "isInvulnerableTo",
-        at = @At("HEAD"),
-        cancellable = true
+            method = "isInvulnerableTo",
+            at = @At("HEAD"),
+            cancellable = true
     )
     private void onHurt(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
         final var entity = (Entity) (Object) this;
@@ -28,10 +29,34 @@ public class MixinEntity {
     }
 
     @Inject(
-           method = "move",
-           at = @At("HEAD")
+
+            method = "move",
+            at = @At("HEAD")
     )
     public void onMove(MoverType movementType, Vec3 movement, CallbackInfo ci) {
         LauncherKt.handleLauncher((Entity) (Object) this);
     }
+
+    @Inject(
+            method = "isCurrentlyGlowing",
+            at = @At("RETURN"),
+            cancellable = true
+    )
+    private void makeEverythingGlow(CallbackInfoReturnable<Boolean> cir) {
+        //noinspection ConstantConditions
+        if ((Object) this instanceof Player) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(
+            method = "isInWaterOrRain",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void isInRain(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(true);
+    }
+
+
 }
