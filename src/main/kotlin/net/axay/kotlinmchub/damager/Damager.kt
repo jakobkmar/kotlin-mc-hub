@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameType
 import java.util.*
@@ -18,6 +19,7 @@ object Damager {
 
     private val damagerPos = Pos3i(-8, -31, -21) to Pos3i(-2, -28, -13)
     private val beforeGamemodes = mutableMapOf<UUID, GameType>()
+    private val beforeInventories = mutableMapOf<UUID, List<ItemStack>>()
 
     fun enable() {
         coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
@@ -48,6 +50,8 @@ object Damager {
     }
 
     private fun ServerPlayer.onEnterDamager() {
+        beforeInventories[uuid] = inventory.items.toList()
+        beforeGamemodes[uuid] = gameMode.gameModeForPlayer
         inventory.clearContent()
         repeat(36) {
             inventory.add(Items.MUSHROOM_STEW.defaultInstance)
@@ -57,18 +61,26 @@ object Damager {
         inventory.setItem(15, itemStack(Items.BROWN_MUSHROOM, 64){})
         foodData.foodLevel = 20
         health = 20f
-        beforeGamemodes[uuid] = gameMode.gameModeForPlayer
         setGameMode(GameType.ADVENTURE)
         sendText("You entered the damager.")
     }
 
     private fun ServerPlayer.onLeaveDamager() {
-        inventory.clearContent()
         playersInDamager.remove(this)
         foodData.foodLevel = 20
         health = 20f
+        setGameMode(beforeGamemodes[uuid] ?: GameType.SURVIVAL)
+        setInventory(beforeInventories[uuid] ?: emptyList())
         setGameMode(beforeGamemodes.remove(uuid) ?: GameType.SURVIVAL)
         sendText("You left the damager.")
+    }
+
+    private fun ServerPlayer.setInventory(newItems: List<ItemStack>) {
+        inventory.clearContent()
+
+        newItems.forEachIndexed { index, itemStack ->
+            inventory.setItem(index, itemStack)
+        }
     }
 }
 
