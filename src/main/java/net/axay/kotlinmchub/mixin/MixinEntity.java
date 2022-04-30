@@ -30,7 +30,8 @@ public class MixinEntity {
             cancellable = true
     )
     private void makeEverythingGlow(CallbackInfoReturnable<Boolean> cir) {
-        if((Object) this instanceof Player) { //yes it says it is impossible but it actually is possible.
+        //noinspection ConstantConditions
+        if((Object) this instanceof Player) {
             cir.setReturnValue(true);
         }
     }
