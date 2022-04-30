@@ -12,11 +12,13 @@ import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameType
+import java.util.*
 
 val playerDifficulty = mutableMapOf<Player, Float>()
 
 object Damager {
-    val damagerPos = Pos3i(-8, -30, -22) to Pos3i(-2, -28, -13)
+    val damagerPos = Pos3i(-8, -31, -22) to Pos3i(-2, -28, -13)
+    val beforeGamemodes = mutableMapOf<UUID, GameType>()
 
     fun enable() {
         coroutineTask(period = 12L, howOften = Long.MAX_VALUE) {
@@ -56,6 +58,7 @@ object Damager {
         inventory.setItem(15, itemStack(Items.BROWN_MUSHROOM, 64){})
         foodData.foodLevel = 20
         health = 20f
+        beforeGamemodes[uuid] = gameMode.gameModeForPlayer
         setGameMode(GameType.ADVENTURE)
         sendText("Du hast den Damager betreten")
     }
@@ -64,7 +67,7 @@ object Damager {
         playersInDamager.remove(this)
         foodData.foodLevel = 20
         health = 20f
-        setGameMode(GameType.SURVIVAL)
+        setGameMode(beforeGamemodes[uuid] ?: GameType.SURVIVAL)
         sendText("Du hast den Damager verlassen")
     }
 }

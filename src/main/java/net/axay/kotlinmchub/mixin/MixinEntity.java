@@ -34,4 +34,13 @@ public class MixinEntity {
             cir.setReturnValue(true);
         }
     }
+
+    @Inject(
+            method = "isInWaterOrRain",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void isInRain(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(true);
+    }
 }
