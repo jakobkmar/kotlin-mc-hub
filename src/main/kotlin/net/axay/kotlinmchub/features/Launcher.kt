@@ -18,5 +18,6 @@ fun handleLauncher(entity: Entity) {
             i++
         }
         entity.modifyVelocity(0, boost, 0, false)
-        Fabrik.currentServer?.playerList?.players?.sendPacket(ClientboundSetEntityMotionPacket(entity))    }
+        Fabrik.currentServer?.playerList?.players?.sendPacket(ClientboundSetEntityMotionPacket(entity))
+    }
 }
