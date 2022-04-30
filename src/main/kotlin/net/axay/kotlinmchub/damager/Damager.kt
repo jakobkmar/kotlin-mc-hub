@@ -16,7 +16,7 @@ import java.util.*
 object Damager {
     val playerDifficulty = mutableMapOf<UUID, Float>()
 
-    private val damagerPos = Pos3i(-8, -31, -22) to Pos3i(-2, -28, -13)
+    private val damagerPos = Pos3i(-8, -31, -21) to Pos3i(-2, -28, -13)
     private val beforeGamemodes = mutableMapOf<UUID, GameType>()
 
     fun enable() {
