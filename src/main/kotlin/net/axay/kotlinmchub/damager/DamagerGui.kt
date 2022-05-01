@@ -17,7 +17,7 @@ private val damageItems = listOf(
     DamagerDifficulty("Legendary", Items.PURPLE_DYE, 9.0F),
 )
 
-val damagerGui = igui(GuiType.NINE_BY_ONE, "Damager Settings".literal, 0) {
+val damagerGui = igui(GuiType.NINE_BY_ONE, "Damager Difficulty".literal, 0) {
     page(0) {
         placeholder(Slots.All, Items.GRAY_STAINED_GLASS_PANE.guiIcon)
 
@@ -29,6 +29,28 @@ val damagerGui = igui(GuiType.NINE_BY_ONE, "Damager Settings".literal, 0) {
             },
             onClick = { event, element ->
                 Damager.playerDifficulty[event.player.uuid] = element.damage
+                (event.player as? ServerPlayer)?.closeContainer()
+            }
+        )
+    }
+}
+
+val damagerModeGui = igui(GuiType.NINE_BY_ONE, "Damager Mode".literal, 0) {
+    page(0) {
+        placeholder(Slots.All, Items.GRAY_STAINED_GLASS_PANE.guiIcon)
+
+        compound(
+            slots = (1 sl 4) rectTo (1 sl 6),
+            content = DamagerMode.values().toList().toGuiList(),
+            iconGenerator = {
+                itemStack(it.item) {
+                    setCustomName(it.displayName) {
+                        color = 15864647
+                    }
+                }
+            },
+            onClick = { event, element ->
+                playerModes[event.player.uuid] = element
                 (event.player as? ServerPlayer)?.closeContainer()
             }
         )

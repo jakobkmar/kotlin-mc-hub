@@ -16,8 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
 fun onClickSign(sign: SignBlock, state: BlockState, world: Level, pos: BlockPos, player: Player, hand: InteractionHand, hit: BlockHitResult, cir: CallbackInfoReturnable<InteractionResult>) {
     val signEntity: SignBlockEntity = world.getBlockEntity(pos) as? SignBlockEntity ?: return
     repeat(4) {
-        if ("damager" in signEntity.getMessage(it, false).string.lowercase()) {
-            (player as ServerPlayer).openGui(damagerGui, 0)
+        val message = signEntity.getMessage(it, false).string.lowercase()
+        if(player !is ServerPlayer)return
+        if ("damager" in message) {
+            player.openGui(damagerGui, 0)
+            return
+        } else if("mode" in message) {
+            player.openGui(damagerModeGui,0)
             return
         }
     }
