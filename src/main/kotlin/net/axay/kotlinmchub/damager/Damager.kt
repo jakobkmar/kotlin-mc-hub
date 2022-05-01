@@ -9,6 +9,9 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.Vec3
@@ -31,6 +34,17 @@ object Damager {
                     player.health = 20f
                 } else {
                     player.hurt(DamageSource.GENERIC, damage)
+                    when(playerModes[player.uuid] ?: DamagerMode.DEFAULT) {
+                        DamagerMode.CRAP -> {
+                            if(Random().nextInt(4) == 3) {
+                                player.inventory.add(ItemStack(Items.DIRT, 1))
+                            }
+                        }
+                        DamagerMode.WITHER -> {
+                            player.addEffect(MobEffectInstance(MobEffects.WITHER, 40, 1))
+                        }
+                        else -> {}
+                    }
                 }
             }
         }
