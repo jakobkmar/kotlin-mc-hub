@@ -24,20 +24,31 @@ object Damager {
     private val damagerSpawn = Vec3(-4.5, -30.0, -9.5)
     private val beforeGamemodes = mutableMapOf<UUID, GameType>()
 
+    val crap = setOf(
+        Items.DIRT, Items.STICK, Items.POPPY, Items.PODZOL, Items.COBBLESTONE
+    )
+
     fun enable() {
         coroutineTask(period = (1000L / 20L) * 12L, howOften = Long.MAX_VALUE) {
             checkPlayersInDamager()
             playersInDamager.forEach { player ->
                 val damage = playerDifficulty.getOrDefault(player.uuid, 5.0F)
                 if (player.health - damage <= 0) {
-                    player.teleportTo(Fabrik.currentServer!!.overworld(), damagerSpawn.x, damagerSpawn.y, damagerSpawn.z, 180F, 0F)
+                    player.teleportTo(
+                        Fabrik.currentServer!!.overworld(),
+                        damagerSpawn.x,
+                        damagerSpawn.y,
+                        damagerSpawn.z,
+                        180F,
+                        0F
+                    )
                     player.health = 20f
                 } else {
                     player.hurt(DamageSource.GENERIC, damage)
-                    when(playerModes[player.uuid] ?: DamagerMode.DEFAULT) {
+                    when (playerModes[player.uuid] ?: DamagerMode.DEFAULT) {
                         DamagerMode.CRAP -> {
-                            if(Random().nextInt(4) == 3) {
-                                player.inventory.add(ItemStack(Items.DIRT, 1))
+                            if (Random().nextInt(4) == 3) {
+                                player.inventory.add(ItemStack(crap.random(), Random().nextInt(1, 16)))
                             }
                         }
                         DamagerMode.WITHER -> {
@@ -74,9 +85,9 @@ object Damager {
         repeat(36) {
             inventory.add(Items.MUSHROOM_STEW.defaultInstance)
         }
-        inventory.setItem(13, itemStack(Items.BOWL, 64){})
-        inventory.setItem(14, itemStack(Items.RED_MUSHROOM, 64){})
-        inventory.setItem(15, itemStack(Items.BROWN_MUSHROOM, 64){})
+        inventory.setItem(13, itemStack(Items.BOWL, 64) {})
+        inventory.setItem(14, itemStack(Items.RED_MUSHROOM, 64) {})
+        inventory.setItem(15, itemStack(Items.BROWN_MUSHROOM, 64) {})
         foodData.foodLevel = 20
         health = 20f
         beforeGamemodes[uuid] = gameMode.gameModeForPlayer
