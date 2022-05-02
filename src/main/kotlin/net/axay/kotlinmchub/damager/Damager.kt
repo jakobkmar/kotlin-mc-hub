@@ -31,7 +31,7 @@ object Damager {
     fun enable() {
         coroutineTask(period = (1000L / 20L) * 12L, howOften = Long.MAX_VALUE) {
             checkPlayersInDamager()
-            playersInDamager.forEach { player ->
+            playersInDamager.toMutableList().forEach { player ->
                 val damage = playerDifficulty.getOrDefault(player.uuid, 5.0F)
                 if (player.health - damage <= 0) {
                     player.teleportTo(
