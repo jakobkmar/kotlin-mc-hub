@@ -42,7 +42,8 @@ object Damager {
                         180F,
                         0F
                     )
-                    player.health = 20f
+                    playersInDamager.remove(player)
+                    player.onLeaveDamager()
                 } else {
                     player.hurt(DamageSource.GENERIC, damage)
                     when (playerModes[player.uuid] ?: DamagerMode.DEFAULT) {
