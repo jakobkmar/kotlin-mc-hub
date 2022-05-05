@@ -1,5 +1,6 @@
 package net.axay.kotlinmchub.mixin;
 
+import net.axay.kotlinmchub.minigames.tictactoe.TicTacToeKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundBlockBreakAckPacket;
@@ -22,16 +23,16 @@ public class MixinServerPlayerGameMode {
     @Shadow protected ServerLevel level;
 
     @Inject(
-        method = "handleBlockBreakAction",
-        at = @At("HEAD"),
-        cancellable = true
+            method = "handleBlockBreakAction",
+            at = @At("HEAD"),
+            cancellable = true
     )
     private void onHandleBlockBreakAction(BlockPos pos,
                                           ServerboundPlayerActionPacket.Action action,
                                           Direction direction,
                                           int worldHeight,
                                           CallbackInfo ci) {
-        if (player.gameMode.isSurvival()) {
+        if (player.gameMode.isSurvival() || TicTacToeKt.isTicTacToeBlock(pos)) {
             player.connection.send(new ClientboundBlockBreakAckPacket(pos, level.getBlockState(pos), action, false));
             ci.cancel();
         }
