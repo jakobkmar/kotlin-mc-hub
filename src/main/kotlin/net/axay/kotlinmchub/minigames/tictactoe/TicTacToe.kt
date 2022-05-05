@@ -116,7 +116,7 @@ object TicTacToe {
                     player.sendText(
                         literalText {
                             color = 0xB736D5
-                            text("this Field is already claimed")
+                            text("This field is already claimed")
                         }
                     )
                     return
@@ -132,7 +132,6 @@ object TicTacToe {
 
 
     private fun updateFields(reset: Boolean = false) {
-        println("update Fields")
         if (reset || !gameRunning) {
             ticTacToeBlocks.forEach {
                 Fabrik.currentServer!!.overworld().setBlockAndUpdate(
@@ -169,17 +168,17 @@ object TicTacToe {
 
 
     private fun checkWinner() {
-        for (i in 0..8) {
-            val line = when (i) {
+        repeat(9) {
+            val line = when (it) {
                 0 -> fields[getBlockPosByFieldNumber(1)]?.character +
-                        fields[getBlockPosByFieldNumber(2)]?.character +
-                        fields[getBlockPosByFieldNumber(3)]?.character
+                    fields[getBlockPosByFieldNumber(2)]?.character +
+                    fields[getBlockPosByFieldNumber(3)]?.character
                 1 -> fields[getBlockPosByFieldNumber(6)]?.character +
-                        fields[getBlockPosByFieldNumber(5)]?.character +
-                        fields[getBlockPosByFieldNumber(4)]?.character
+                    fields[getBlockPosByFieldNumber(5)]?.character +
+                    fields[getBlockPosByFieldNumber(4)]?.character
                 2 -> fields[getBlockPosByFieldNumber(9)]?.character +
-                        fields[getBlockPosByFieldNumber(8)]?.character +
-                        fields[getBlockPosByFieldNumber(7)]?.character
+                    fields[getBlockPosByFieldNumber(8)]?.character +
+                    fields[getBlockPosByFieldNumber(7)]?.character
 
                 3 -> fields[getBlockPosByFieldNumber(1)]?.character +
                         fields[getBlockPosByFieldNumber(4)]?.character +
@@ -200,14 +199,13 @@ object TicTacToe {
                         fields[getBlockPosByFieldNumber(8)]?.character
                 else -> "/"
             }
-            println(line)
             var winner: ServerPlayer? = null
             if (line == "XXX") {
                 winner = players.first()
             } else if (line == "OOO") winner = players[1]
             if (winner != null) {
-                players.forEach {
-                    it.sendText(literalText {
+                players.forEach { player ->
+                    player.sendText(literalText {
                         color = 0xFF1821
                         text(winner.name)
                         color = 0x3BFF30
@@ -216,8 +214,8 @@ object TicTacToe {
                 }
                 resetGame()
             } else if (fields.size == 9) {
-                players.forEach {
-                    it.sendText(literalText {
+                players.forEach { player ->
+                    player.sendText(literalText {
                         color = 0x3BFF30
                         text("unentschieden, keiner gewinnt")
                     })
