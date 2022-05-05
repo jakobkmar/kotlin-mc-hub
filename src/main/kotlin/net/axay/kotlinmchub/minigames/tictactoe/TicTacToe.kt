@@ -42,7 +42,6 @@ object TicTacToe {
         }
 
         ServerPlayConnectionEvents.DISCONNECT.register { handler, _ ->
-            println("disconnect")
             queue.remove(handler.player)
             if (gameRunning) {
                 players.forEach {
@@ -109,9 +108,8 @@ object TicTacToe {
 
     private fun handleGame(player: ServerPlayer, blockPos: BlockPos) {
         if (gameRunning) {
-            if (!blockPos.isTicTacToeBlock) return
+            if (!ticTacToeBlocks.contains(blockPos)) return
             if (player == players[turn]) {
-
                 if (fields.containsKey(blockPos)) {
                     player.sendText(
                         literalText {
@@ -147,7 +145,6 @@ object TicTacToe {
             val color =
                 if (players.first() == serverPlayer) Blocks.RED_WOOL.defaultBlockState() else Blocks.GREEN_WOOL.defaultBlockState()
             Fabrik.currentServer!!.overworld().setBlockAndUpdate(blockPos, color)
-
         }
 
     }
@@ -217,7 +214,7 @@ object TicTacToe {
                 players.forEach { player ->
                     player.sendText(literalText {
                         color = 0x3BFF30
-                        text("unentschieden, keiner gewinnt")
+                        text("Unentschieden, niemand gewinnt")
                     })
                 }
                 resetGame()
@@ -257,12 +254,4 @@ object TicTacToe {
 val Player.isInTicTacToeQueue: Boolean
     get() {
         return queue.contains(this)
-    }
-
-val BlockPos.isTicTacToeBlock: Boolean
-    get() {
-        TicTacToe.ticTacToeBlocks.forEach {
-            if (it == this) return true
-        }
-        return false
     }
