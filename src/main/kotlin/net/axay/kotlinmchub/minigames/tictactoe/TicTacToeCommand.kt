@@ -5,7 +5,7 @@ import net.axay.fabrik.core.text.literalText
 import net.axay.fabrik.core.text.sendText
 import net.minecraft.server.level.ServerPlayer
 
-val ticTacToeCommand = command("ttc") {
+val ticTacToeCommand = command("tictactoe") {
     literal("queue") {
         literal("join") {
             runs {

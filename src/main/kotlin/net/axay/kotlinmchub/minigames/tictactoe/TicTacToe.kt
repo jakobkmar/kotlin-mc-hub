@@ -102,7 +102,7 @@ object TicTacToe {
             it.sendText(literalText {
                 color = 0xFF1821
                 text("Teleportiere dich zum Spielfeld")
-                clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ttc teleport")
+                clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tictactoe teleport")
             })
         }
     }

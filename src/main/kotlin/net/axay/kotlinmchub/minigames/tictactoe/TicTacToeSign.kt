@@ -26,8 +26,14 @@ fun onClickSign(
     repeat(4) {
         if ("tictactoe" in signEntity.getMessage(it, false).string.lowercase()) {
             if (player.isInTicTacToeQueue) {
-                Fabrik.currentServer!!.commands.performCommand(player.createCommandSourceStack(), "/ttc queue leave")
-            } else Fabrik.currentServer!!.commands.performCommand(player.createCommandSourceStack(), "/ttc queue join")
+                Fabrik.currentServer!!.commands.performCommand(
+                    player.createCommandSourceStack(),
+                    "/tictactoe queue leave"
+                )
+            } else Fabrik.currentServer!!.commands.performCommand(
+                player.createCommandSourceStack(),
+                "/tictactoe queue join"
+            )
             return@repeat
         }
     }
