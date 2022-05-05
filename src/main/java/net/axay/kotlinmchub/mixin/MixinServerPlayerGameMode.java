@@ -23,9 +23,9 @@ public class MixinServerPlayerGameMode {
     @Shadow protected ServerLevel level;
 
     @Inject(
-            method = "handleBlockBreakAction",
-            at = @At("HEAD"),
-            cancellable = true
+        method = "handleBlockBreakAction",
+        at = @At("HEAD"),
+        cancellable = true
     )
     private void onHandleBlockBreakAction(BlockPos pos,
                                           ServerboundPlayerActionPacket.Action action,
