@@ -3,7 +3,8 @@ package net.axay.kotlinmchub.damager
 import net.axay.fabrik.core.Fabrik
 import net.axay.fabrik.core.entity.pos
 import net.axay.fabrik.core.item.itemStack
-import net.axay.fabrik.core.task.coroutineTask
+import net.axay.fabrik.core.kotlin.ticks
+import net.axay.fabrik.core.task.infiniteMcCoroutineTask
 import net.axay.fabrik.core.text.sendText
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
@@ -29,7 +30,7 @@ object Damager {
     )
 
     fun enable() {
-        coroutineTask(period = (1000L / 20L) * 12L, howOften = Long.MAX_VALUE) {
+        infiniteMcCoroutineTask(period = 12.ticks) {
             checkPlayersInDamager()
             playersInDamager.toMutableList().forEach { player ->
                 val damage = playerDifficulty.getOrDefault(player.uuid, 5.0F)

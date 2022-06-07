@@ -2,7 +2,7 @@ package net.axay.kotlinmchub.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.protocol.game.ClientboundBlockBreakAckPacket;
+import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,9 +30,10 @@ public class MixinServerPlayerGameMode {
                                           ServerboundPlayerActionPacket.Action action,
                                           Direction direction,
                                           int worldHeight,
+                                          int i,
                                           CallbackInfo ci) {
         if (player.gameMode.isSurvival()) {
-            player.connection.send(new ClientboundBlockBreakAckPacket(pos, level.getBlockState(pos), action, false));
+            player.connection.send(new ClientboundBlockUpdatePacket(pos, level.getBlockState(pos)));
             ci.cancel();
         }
     }
