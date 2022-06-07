@@ -1,5 +1,6 @@
 package net.axay.kotlinmchub.mixin;
 
+import net.axay.kotlinmchub.minigames.tictactoe.TicTacToe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
@@ -32,7 +33,7 @@ public class MixinServerPlayerGameMode {
                                           int worldHeight,
                                           int i,
                                           CallbackInfo ci) {
-        if (player.gameMode.isSurvival()) {
+        if (player.gameMode.isSurvival() || TicTacToe.INSTANCE.getTicTacToeBlocks().contains(pos)) {
             player.connection.send(new ClientboundBlockUpdatePacket(pos, level.getBlockState(pos)));
             ci.cancel();
         }
